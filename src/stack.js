@@ -11,6 +11,8 @@ let Stack = {
       vNode = this.createVElement(tag, config, children);
     }
 
+
+
     return vNode;
   },
 
@@ -102,6 +104,7 @@ let Stack = {
   },
 
   updateChildren(prevChildren, nextChildren, parentDOMNode) {
+    // debugger;
 
     if (!Array.isArray(nextChildren)) {
       nextChildren = [nextChildren];
@@ -109,6 +112,7 @@ let Stack = {
     if (!Array.isArray(prevChildren)) {
       prevChildren = [prevChildren];
     }
+
 
 
     for (let i = 0; i < nextChildren.length; i++) {
@@ -119,15 +123,22 @@ let Stack = {
       const prevChild = prevChildren[i];
 
 
-      //Check if the vNode is a vText
-      if (typeof nextChild === 'string' && typeof prevChild === 'string') {
-        //We're taking a shortcut here. It would cleaner to
-        //let the `update` function handle it, but we would to add some extra
-        //logic because we don't have a `tag` property.
-        this.updateVText(prevChild, nextChild, parentDOMNode);
-        continue;
-      } else {
-        this.update(prevChild, nextChild, parentDOMNode);
+      if (Array.isArray(prevChild) || Array.isArray(nextChild))
+      {
+        this.updateChildren(prevChild, nextChild, parentDOMNode);
+      }
+      else
+      {
+        //Check if the vNode is a vText
+        if ((typeof nextChild === 'string' || typeof nextChild === 'number') && (typeof prevChild === 'string' || typeof prevChild === 'number')) {
+          //We're taking a shortcut here. It would cleaner to
+          //let the `update` function handle it, but we would to add some extra
+          //logic because we don't have a `tag` property.
+          this.updateVText(prevChild, nextChild, parentDOMNode);
+          continue;
+        } else {
+          this.update(prevChild, nextChild, parentDOMNode);
+        }
       }
     }
 
@@ -303,7 +314,7 @@ let Stack = {
 
     return domNode;
   }
-}
+};
 
 class Component {
   constructor(props) {
