@@ -125,6 +125,7 @@ let Stack = {
 
       if (Array.isArray(prevChild) || Array.isArray(nextChild))
       {
+        // debugger;
         this.updateChildren(prevChild, nextChild, parentDOMNode);
       }
       else
@@ -158,8 +159,9 @@ let Stack = {
   },
 
   triggerComponentUnMounts(vNode) {
-    if (typeof vNode != 'string') {
+    if (typeof vNode != 'string' && typeof vNode !='number') {
 
+      // debugger;
       if (typeof vNode.tag == 'function') {
         vNode._instance.componentWillUnmount();
         this.triggerComponentUnMounts(vNode._instance._currentElement);
