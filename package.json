@@ -1,6 +1,6 @@
 {
   "name": "@keshav.katwe/stack",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Library like react",
   "main": "./lib/stack.js",
   "scripts": {
