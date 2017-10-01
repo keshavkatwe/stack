@@ -195,6 +195,8 @@ let Stack = {
 
   mount(input, parentDOMNode, isUpdate = false) {
 
+    // debugger;
+
     //Hmmm lets see what input is.
     if (typeof input === 'string' || typeof input === 'number') {
       //we have a vText
@@ -265,7 +267,7 @@ let Stack = {
     // Oeeh we received a vText with it's associated parentDOMNode.
     // we can set it's textContent to the vText value.
     // https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
-    parentDOMNode.textContent += vText;
+    parentDOMNode.innerHTML += vText;
   },
 
 
