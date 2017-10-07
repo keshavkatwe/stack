@@ -22,12 +22,31 @@ class Route extends Stack.Component {
 
   loadRoute() {
     let variableNames = [];
+
+
+    if (this.props.path == '*') {
+      this.props.path = '/' + this.props.path;
+    }
+
+
     let route = this.props.path.replace(/([:*])(\w+)/g, function (full, dots, name) {
       variableNames.push(name);
       return '([^\/]+)';
     }) + '(?:\/|$)';
 
     let hashURL = window.location.href.split('#')[1] || '';
+
+    if (hashURL == '')
+    {
+      window.location.hash = '#/'
+    }
+
+
+    if (hashURL[0] != '/') {
+      hashURL = '/' + hashURL;
+    }
+
+
     let match = hashURL.match(new RegExp(route));
 
 
